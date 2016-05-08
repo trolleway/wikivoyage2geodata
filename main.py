@@ -105,6 +105,8 @@ for monument in re.findall(p, test_str):
 	value=re.search('name=(.+?)\|',monument)
 	if value:
 		monumentdata['name'] = value.group(1).strip()
+	else:
+		monumentdata['name'] = 'NULL'
 
 
 	pAddress = re.compile(ur'address=(.+?)\|', re.MULTILINE | re.DOTALL)
@@ -154,9 +156,3 @@ for monument in re.findall(p, test_str):
 	if monumentdata['photographed']==0: 
 		print monumentdata['name'],' ',monumentdata['address']	
 		writer.writerow(row)
-
-
-#print html
-
-quit()
-
