@@ -7,11 +7,10 @@ import urlparse
 import re
 import csv
 import time
-
-
-
-
 import os
+
+
+
 mergedListFileName='pages_temp.txt'
 if os.path.exists(mergedListFileName):
     os.remove(mergedListFileName)
@@ -156,3 +155,23 @@ for monument in re.findall(p, test_str):
 	if monumentdata['photographed']==0: 
 		print monumentdata['name'],' ',monumentdata['address']	
 		writer.writerow(row)
+
+#generate vrt
+
+txt='''<OGRVRTDataSource>
+    <OGRVRTLayer name="'''+csvFileName+'''">
+        <LayerSRS>WGS84</LayerSRS>
+        <SrcDataSource>'''+csvFileName+'''.csv</SrcDataSource>
+        <GeometryType>wkbPoint</GeometryType>
+        <GeometryField encoding="PointFromColumns" x="Lon" y="Lat"/>
+    </OGRVRTLayer>
+</OGRVRTDataSource>'''
+text_file = open(csvFileName+".vrt", "w")
+text_file.write(txt)
+text_file.close()
+
+#convert to geojson using ogr2ogr
+
+command='ogr2ogr -f "GeoJSON" '+csvFileName+'.geojson '+csvFileName+'.vrt'
+print command
+os.system(command)
