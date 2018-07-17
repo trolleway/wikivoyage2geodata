@@ -151,7 +151,7 @@ for monument in re.findall(p, test_str):
 	#print monumentdata['photographed']
 
 
-	row=monumentdata['lat'],monumentdatamonumentdata['photographed']==0['lon'],monumentdata['photographed'],monumentdata['name'],monumentdata['address']
+	row=monumentdata['lat'],monumentdata['lon'],monumentdata['photographed'],monumentdata['name'],monumentdata['address']
 	if monumentdata['photographed']==0 or monumentdata['photographed']==1: 
 		print monumentdata['name'],' ',monumentdata['address']	
 		writer.writerow(row)
